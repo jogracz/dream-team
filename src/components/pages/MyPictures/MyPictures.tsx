@@ -16,7 +16,7 @@ const MyPictures = () => {
     <MyPicturesWrapper>
       {photos.map((src,index) => 
         (
-          <Picture key={index} src={src} />   
+          <Picture key={src} src={src} />   
         )
       )}
     </MyPicturesWrapper>

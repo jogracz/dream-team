@@ -4,7 +4,6 @@ import {
   Switch,
   Route
 } from "react-router-dom";
-import './App.css';
 import {
   About,
   Home,
@@ -21,43 +20,42 @@ import {
   Footer,
  } from './components/MainUI';
 import { AppProvider } from './context/AppContext/AppContext';
+import { GameProvider } from './context/GameContext/GameContext';
 
 const App = () => {
   return (
     <AppProvider>
-      <Router>
-        <div className="App">
-
-      <SiteWrapper>
-        <Header />
-        <SiteContent>
-          <Sidebar />
-          <Switch>
-            <Route exact path="/">
-              <Home />
+      <GameProvider>
+        <Router>
+        <SiteWrapper>
+          <Header />
+          <SiteContent>
+            <Sidebar />
+            <Switch>
+              <Route exact path="/">
+                <Home />
+              </Route>
+              <Route path="/about">               
+                <About />
+              </Route>
+              <Route path="/my-pictures">
+                <MyPictures />
+              </Route>
+              <Route path="/buy">
+                <Buy />
+              </Route>
+              <Route path="/achievements">
+                <Achievements />
+              </Route>
+              <Route path="*">
+              <NotFound />
             </Route>
-            <Route path="/about">               
-              <About />
-            </Route>
-            <Route path="/my-pictures">
-              <MyPictures />
-            </Route>
-            <Route path="/buy">
-              <Buy />
-            </Route>
-            <Route path="/achievements">
-              <Achievements />
-            </Route>
-            <Route path="*">
-            <NotFound />
-          </Route>
-          </Switch>
-        </SiteContent>
-        <Footer />
-      </SiteWrapper>
-      
-    </div>
-      </Router>
+            </Switch>
+          </SiteContent>
+          <Footer />
+        </SiteWrapper>
+        </Router>
+      </GameProvider>
     </AppProvider>
   );
 }

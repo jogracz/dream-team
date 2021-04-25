@@ -1,29 +1,34 @@
-import React, { useState, createContext, useContext} from 'react';
-import { THEMES, themes, Theme } from '../../constants/colors';
+import React, { useState, createContext, useContext, Dispatch, SetStateAction} from 'react';
+import { themes, Theme } from '../../constants/colors';
 
 interface AppProviderValue {
-  points: number;
   photos: string[],
   user: null,
   theme: Theme,
+  popupOpen: boolean,
+  photosTaken: number;
+  signedUp: boolean,
   selectTheme: (newTheme: Theme) => void,
   addPhoto: (newPhoto: string) => void,
   removePhoto: (photoSrc: string) => void;
-  subscribeToNewsletter: (email: string) => void;
-  addPoints: (pointsToAdd: number) => void;
+  openPopup: () => void,
+  closePopup: () => void,
+  setSignedUp: Dispatch<SetStateAction<boolean>>,
 }
 
 const defaultValue: AppProviderValue = {
-  points: 30,
   photos: [],
   user: null,
   theme: themes.bedge,
-  selectTheme: (newTheme: Theme) => null,
-  addPhoto: (newPhoto: string) => null,
-  removePhoto: (photoSrc: string) => null,
-  subscribeToNewsletter: (email: string) => null,
-  addPoints: (pointsToAdd: number) => null,
-
+  popupOpen: false,
+  photosTaken: 0,
+  signedUp: false,
+  selectTheme: () => null,
+  addPhoto: () => null,
+  removePhoto: () => null,
+  openPopup: () => null,
+  closePopup: () => null,
+  setSignedUp: () => null,
 }
 
 const AppContext = createContext(defaultValue);
@@ -32,15 +37,17 @@ interface AppProviderProps {
   children: any;
 }
 
-
 export const AppProvider = (props: AppProviderProps) => {
   const { children } = props;
   const [theme, setTheme] = useState(themes.bedge);
   const [photos, setPhotos] = useState<string[]>([]);
-  const [points, setPoints] = useState(30);
+  const [popupOpen, setPopupOpen] = useState(false);
+  const [photosTaken, setPhotosTaken] = useState(0);
+  const [signedUp, setSignedUp] = useState(localStorage.getItem('signedUP') === 'true' ? true : false);
 
   const addPhoto = (newPhoto: string) => {
     setPhotos(photos => [...photos, newPhoto]);
+    setPhotosTaken(photosTaken => photosTaken + 1);
   }
 
   const removePhoto = (photoSrc: string) => {
@@ -51,24 +58,27 @@ export const AppProvider = (props: AppProviderProps) => {
     setTheme(newTheme) ;
   }
 
-  const subscribeToNewsletter = () => {
-
+  const openPopup = () => {
+    setPopupOpen(true);
   }
 
-  const addPoints = (pointsToAdd: number) => {
-    setPoints(points => points + pointsToAdd);
+  const closePopup = () => {
+    setPopupOpen(false);
   }
 
   const value = {
-    points,
     photos,
     user: null,
     theme,
+    popupOpen,
+    photosTaken,
+    signedUp,
     selectTheme,
     addPhoto,
     removePhoto,
-    subscribeToNewsletter,
-    addPoints
+    openPopup,
+    closePopup,
+    setSignedUp,
   }
 
   return (

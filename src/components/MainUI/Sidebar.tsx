@@ -10,6 +10,12 @@ const SidebarWrapper = styled.div`
   position: absolute;
   left: 10px;
   width: 80px;
+  @media(max-width: 599px) {
+    top: 70px;
+    width: 95%;
+    flex-direction: row;
+    justify-content: center;
+  }
 `
 interface SidebarElementProps {
   selected: boolean;

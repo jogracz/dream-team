@@ -1,4 +1,5 @@
 import React from 'react';
+import { NavLink } from 'react-router-dom';
 import styled from 'styled-components';
 import { AiOutlineThunderbolt } from 'react-icons/ai';
 import { useAppContext } from '../../context/AppContext/AppContext';
@@ -8,7 +9,6 @@ const FooterWrapper = styled.div`
   bottom: 0;
   border-top: 2px solid pink;
   border-color: ${props => props.theme.secondBackground};
-  // box-shadow: -0px -1px 30px ${props => props.theme.foreground};
   width: 100%;
   height: 40px;
   display: flex;
@@ -16,13 +16,15 @@ const FooterWrapper = styled.div`
   justify-content: center;
 `
 const LogoWrapper = styled.div`
-  color: ${props => props.theme.foreground};
+  width: 200px;
+  text-align: center;
   font-size: 14px;
   font-weight: 700;
   cursor: pointer;
   height: 30px;
   display: flex;
   align-items: center;
+  justify-content: center;
   span {
     padding-left: 5px;
   }
@@ -38,10 +40,12 @@ const Footer = () => {
 
   return (
     <FooterWrapper theme={theme}>
-      <LogoWrapper theme={theme}>
-        <AiOutlineThunderbolt className='logoIcon' />
-        <span>DreamTeamLSD</span>
+      <NavLink to={'/about'} exact>
+        <LogoWrapper theme={theme}>
+          <AiOutlineThunderbolt className='logoIcon' />
+          <span>DreamTeamLSD</span>
         </LogoWrapper>
+      </NavLink>
     </FooterWrapper>
   )
 }

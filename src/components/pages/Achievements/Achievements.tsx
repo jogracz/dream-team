@@ -1,34 +1,61 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import styled from 'styled-components';
 import { useAppContext } from '../../../context/AppContext/AppContext';
-import {achievementList} from './achievementList';
+import { useGameContext } from '../../../context/GameContext/GameContext';
+import PointsSection from './PointsSection';
+import AchievementsSection from './AchievementsSection';
 
 const AchievementsWrapper = styled.div`
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
+  width: 80%;
+  @media(max-width: 999px) {
+    width: 90%;
+  }
 `
-const Achievement = styled.div`
-  height: 40px;
-  border-radius: 5px;
-  box-shadow: 0 1px 19px ${props => props.theme.secondBackground};
-  color: ${props => props.theme.foreground};
-  line-height: 40px;
-  font-size: 16px;
-  padding:10px;
+const TopSection = styled.div`
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  min-height: 400px;
+  @media(max-width: 799px) {
+    flex-direction: column-reverse;
+    align-items: center;
+  }
+`
+const GetMore = styled.div`
+  margin-top: 50px;
+  cursor: pointer;
+  font-size: 22px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  &:hover {
+    opacity: 0.8;
+  }
+  @media(max-width: 799px) {
+    font-size: 18px;
+  }
 `
 
 const Achievements = () => {
-  const { theme } = useAppContext();
+  const { theme, openPopup } = useAppContext();
+  const { points, checkoutCompletedAchievements, newlyCompleted, completed, uncompleted } = useGameContext();
+
+  useEffect(() => {
+    setTimeout(() => checkoutCompletedAchievements(), 500)
+  }, [checkoutCompletedAchievements])
 
   return (
     <AchievementsWrapper theme={theme}>
-      { achievementList.map((a, index) => (
-        <Achievement key={index} theme={theme}>
-          <span>{a.text}</span>
-        {a.points}
-        </Achievement>
-      ))}
+      <TopSection>
+        <AchievementsSection 
+          newlyCompleted={newlyCompleted}
+          completed={completed}
+          uncompleted={uncompleted}
+        />
+        <PointsSection points={points} />
+      </TopSection>
+      <GetMore onClick={openPopup}>Get more achievements</GetMore>
+      {/* <CompletedSection /> */}
     </AchievementsWrapper>
   )
 }

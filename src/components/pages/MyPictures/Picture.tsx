@@ -1,23 +1,16 @@
 import React, { useState } from 'react';
-import styled, { keyframes } from 'styled-components';
+import styled from 'styled-components';
 import { useAppContext } from '../../../context/AppContext/AppContext';
-import { MdDelete } from 'react-icons/md';
-import { IoIosEye, IoMdClose } from 'react-icons/io';
+import { IoMdClose } from 'react-icons/io';
 import { IoCloudDownloadOutline } from 'react-icons/io5';
-
-const fadeOutAnimation = keyframes`
-`
 
 const PhotoWrapper = styled.div`
   display: flex;
   margin: 8px;
-  opacity 1;
-  transition: opacity 1s linear;
+  transition: opacity 0.7s linear;
   &.removed {
     opacity: 0;
   }
-
-
 `
 const IconsWrapper = styled.div`
   height: 100%;
@@ -37,6 +30,12 @@ const Photo = styled.img`
   margin: 5px;
   margin-bottom: 10px;
   border-radius: 3px;
+  /* @media(max-width: 799px) {
+    width: 170px;
+  }
+  @media(max-width: 599px) {
+    width: 150px;
+  } */
 `
 interface PictureProps {
   src: string;
@@ -44,19 +43,19 @@ interface PictureProps {
 
 const Picture = (props: PictureProps) => {
   const { src } = props;
-  const { theme, removePhoto } = useAppContext();
+  const { theme, removePhoto, openPopup } = useAppContext();
   const [hide, setHide] = useState(false);
 
   const handleRemove = () => {
     setHide(true);
-    setTimeout(() => removePhoto(src), 1000);
+    setTimeout(() => removePhoto(src), 600);
   }
 
   return (
     <PhotoWrapper className={hide ? 'removed' : undefined}>
       <IconsWrapper theme={theme}>
         <IoMdClose onClick={handleRemove}/>
-        <IoCloudDownloadOutline />
+        <IoCloudDownloadOutline onClick={openPopup}/>
       </IconsWrapper>
       <Photo width={200} src={src} />
     </PhotoWrapper>
