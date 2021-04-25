@@ -3,6 +3,7 @@ import { NavLink } from 'react-router-dom';
 import styled from 'styled-components';
 import { AiOutlineThunderbolt } from 'react-icons/ai';
 import { useAppContext } from '../../context/AppContext/AppContext';
+import { sitePrefix } from '../../App';
 
 const FooterWrapper = styled.div`
   position: fixed;
@@ -40,7 +41,7 @@ const Footer = () => {
 
   return (
     <FooterWrapper theme={theme}>
-      <NavLink to={'/about'} exact>
+      <NavLink to={`${sitePrefix}/about`} exact>
         <LogoWrapper theme={theme}>
           <AiOutlineThunderbolt className='logoIcon' />
           <span>DreamTeamLSD</span>

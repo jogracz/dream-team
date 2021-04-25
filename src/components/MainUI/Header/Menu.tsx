@@ -4,6 +4,7 @@ import styled from 'styled-components';
 import { AiOutlineStar } from 'react-icons/ai';
 import { useAppContext } from '../../../context/AppContext/AppContext';
 import { useGameContext } from '../../../context/GameContext/GameContext';
+import { sitePrefix } from '../../../App';
 
 const MenuWrapper = styled.div`
   display: flex;
@@ -47,19 +48,19 @@ const Menu = () => {
   return (
     <MenuWrapper>
       <MenuElement theme={theme} selected={location.pathname === '/'}>
-        <NavLink to={'/'} exact>home</NavLink>
+        <NavLink to={`${sitePrefix}/`} exact>home</NavLink>
       </MenuElement>
       <MenuElement theme={theme} selected={location.pathname === '/about'}>
-        <NavLink to={'/about'} exact>about</NavLink>
+        <NavLink to={`${sitePrefix}/about`} exact>about</NavLink>
       </MenuElement>
       <MenuElement theme={theme} selected={location.pathname === '/my-pictures'}>
-        <NavLink to={'/my-pictures'} exact>my pictures</NavLink>
+        <NavLink to={`${sitePrefix}/my-pictures`} exact>my pictures</NavLink>
       </MenuElement>
       <MenuElement theme={theme} selected={location.pathname === '/buy'} onClick={openPopup}>
-        <NavLink to={'/buy'} exact>buy</NavLink>
+        <NavLink to={`${sitePrefix}/buy`} exact>buy</NavLink>
       </MenuElement>
       <MenuElement theme={theme} selected={location.pathname === '/achievements'}>
-        <NavLink to={'/achievements'} exact>achievements</NavLink>
+        <NavLink to={`${sitePrefix}/achievements`} exact>achievements</NavLink>
         {newAchievement && <AiOutlineStar />}
       </MenuElement>
     </MenuWrapper>

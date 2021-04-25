@@ -42,7 +42,7 @@ const Achievements = () => {
 
   useEffect(() => {
     setTimeout(() => checkoutCompletedAchievements(), 500)
-  }, [checkoutCompletedAchievements])
+  }, [])
 
   return (
     <AchievementsWrapper theme={theme}>

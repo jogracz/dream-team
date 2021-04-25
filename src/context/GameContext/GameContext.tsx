@@ -54,8 +54,9 @@ export const GameProvider = (props: GameProviderProps) => {
     setNewAchievement(true);
   }
 
+  console.log('App Context renders')
+
   const checkoutCompletedAchievements = () => {
-    console.log('checked')
     setCompleted(completed => [...completed, ...newlyCompleted]);
     setNewlyCompleted([]);
     setNewAchievement(false);
@@ -70,7 +71,7 @@ export const GameProvider = (props: GameProviderProps) => {
     if (signedUp) {
       completeAchievement(2);
     }
-  }, [photosTaken, signedUp, completeAchievement])
+  }, [photosTaken, signedUp])
 
   const value = {
     points,

@@ -7,6 +7,7 @@ import { GrClose } from 'react-icons/gr';
 import { useAppContext } from '../../../context/AppContext/AppContext';
 import { useGameContext } from '../../../context/GameContext/GameContext';
 import {MenuElement} from './Menu';
+import { sitePrefix } from '../../../App';
 
 const MobileMenuWrapper = styled.div`
   font-size: 32px;
@@ -71,19 +72,19 @@ const MobileMenu = () => {
           </CloseButton>
           <ModalContent>
               <MenuElement theme={theme} selected={location.pathname === '/'} onClick={() => setOpen(false)}>
-            <NavLink to={'/'} exact>home</NavLink>
+            <NavLink to={`${sitePrefix}/`} exact>home</NavLink>
           </MenuElement>
           <MenuElement theme={theme} selected={location.pathname === '/about'} onClick={() => setOpen(false)}>
-            <NavLink to={'/about'} exact>about</NavLink>
+            <NavLink to={`${sitePrefix}/about`} exact>about</NavLink>
           </MenuElement>
           <MenuElement theme={theme} selected={location.pathname === '/my-pictures'} onClick={() => setOpen(false)}>
-            <NavLink to={'/my-pictures'} exact>my pictures</NavLink>
+            <NavLink to={`${sitePrefix}/my-pictures`} exact>my pictures</NavLink>
           </MenuElement>
           {/* <MenuElement theme={theme} selected={location.pathname === '/buy'} onClick={openPopup}>
-            <NavLink to={'/buy'} exact>buy</NavLink>
+            <NavLink to={`${sitePrefix}/buy`} exact>buy</NavLink>
           </MenuElement> */}
           <MenuElement theme={theme} selected={location.pathname === '/achievements'} onClick={() => setOpen(false)}>
-            <NavLink to={'/achievements'} exact>achievements</NavLink>
+            <NavLink to={`${sitePrefix}/achievements`} exact>achievements</NavLink>
             {newAchievement && <AiOutlineStar />}
           </MenuElement>
           </ModalContent>

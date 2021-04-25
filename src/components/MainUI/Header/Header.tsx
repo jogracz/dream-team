@@ -5,6 +5,7 @@ import { useAppContext } from '../../../context/AppContext/AppContext';
 import EnEfMeLogo from '../../EnEfMeLogo';
 import MobileMenu from './MobileMenu';
 import Menu from './Menu';
+import { sitePrefix } from '../../../App';
 
 const HeaderWrapper = styled.div`
   display: flex;
@@ -43,7 +44,7 @@ const Header = () => {
 
   return (
     <HeaderWrapper theme={theme}>
-      <NavLink to={'/'} exact>
+      <NavLink to={`${sitePrefix}/`} exact>
         <LogoWrapper theme={theme}>
           <EnEfMeLogo />
           <span>EnEfMe</span>

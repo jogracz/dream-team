@@ -22,6 +22,8 @@ import {
 import { AppProvider } from './context/AppContext/AppContext';
 import { GameProvider } from './context/GameContext/GameContext';
 
+export const sitePrefix = '/dream-team';
+
 const App = () => {
   return (
     <AppProvider>
@@ -32,19 +34,19 @@ const App = () => {
           <SiteContent>
             <Sidebar />
             <Switch>
-              <Route exact path="/">
+              <Route exact path={`${sitePrefix}/`}>
                 <Home />
               </Route>
-              <Route path="/about">               
+              <Route path={`${sitePrefix}/about`}>               
                 <About />
               </Route>
-              <Route path="/my-pictures">
+              <Route path={`${sitePrefix}/my-pictures`}>
                 <MyPictures />
               </Route>
-              <Route path="/buy">
+              <Route path={`${sitePrefix}/buy`}>
                 <Buy />
               </Route>
-              <Route path="/achievements">
+              <Route path={`${sitePrefix}/achievements`}>
                 <Achievements />
               </Route>
               <Route path="*">
