@@ -39,7 +39,12 @@ interface SidebarProps {
 
 const Sidebar = (props: SidebarProps) => {
   const { theme, selectTheme } = useAppContext();
-
+  const trackThemeClick = (theme: string) => {
+    let window: any;
+    window.dataLayer.push({
+      event: `${theme}-theme-clicked`,
+    });
+  }
   return (
     <SidebarWrapper theme={theme}>
       <SidebarElement 
@@ -52,7 +57,10 @@ const Sidebar = (props: SidebarProps) => {
       <SidebarElement 
         theme={theme}
         selected={theme === themes.white}
-        onClick={() => selectTheme(themes.white)}
+        onClick={() => {
+          selectTheme(themes.white);
+          trackThemeClick('white');
+        }}
       >
         {THEMES.white}
       </SidebarElement>
