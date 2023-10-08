@@ -1,22 +1,28 @@
-import React, { useState, createContext, useContext, useEffect} from 'react';
-import { useAppContext } from '../AppContext/AppContext';
-import { achievementList } from '../GameContext/achievementList';
+import React, {
+  useState,
+  createContext,
+  useContext,
+  useEffect,
+  useCallback,
+} from "react";
+import { useAppContext } from "../AppContext/AppContext";
+import { achievementList } from "../GameContext/achievementList";
 
 export interface Achievement {
-  id: number,
-  text: string,
-  points: number,
-  status: string
-  link: string
+  id: number;
+  text: string;
+  points: number;
+  status: string;
+  link: string;
 }
 
 interface GameProviderValue {
   points: number;
-  newAchievement: boolean,
-  checkoutCompletedAchievements: () => void,
-  uncompleted: Achievement[],
-  newlyCompleted: Achievement[],
-  completed: Achievement[],
+  newAchievement: boolean;
+  checkoutCompletedAchievements: () => void;
+  uncompleted: Achievement[];
+  newlyCompleted: Achievement[];
+  completed: Achievement[];
 }
 
 const defaultValue: GameProviderValue = {
@@ -26,7 +32,7 @@ const defaultValue: GameProviderValue = {
   uncompleted: achievementList,
   newlyCompleted: [],
   completed: [],
-}
+};
 
 const GameContext = createContext(defaultValue);
 
@@ -40,27 +46,33 @@ export const GameProvider = (props: GameProviderProps) => {
   const [points, setPoints] = useState(30);
   const [newlyCompleted, setNewlyCompleted] = useState<Achievement[]>([]);
   const [completed, setCompleted] = useState<Achievement[]>([]);
-  const [uncompleted, setUncompleted] = useState<Achievement[]>(achievementList);
+  const [uncompleted, setUncompleted] =
+    useState<Achievement[]>(achievementList);
   const [newAchievement, setNewAchievement] = useState(true);
 
   const addPoints = (pointsToAdd: number) => {
-    setPoints(points => points + pointsToAdd);
-  }
+    setPoints((points) => points + pointsToAdd);
+  };
 
-  const completeAchievement = (achievementId: number) => {
+  const completeAchievement = useCallback((achievementId: number) => {
     addPoints(achievementList[achievementId].points);
-    setUncompleted(uncompleted => uncompleted.filter(a => a.id !== achievementId));
-    setNewlyCompleted(newlyCompleted => [...newlyCompleted, achievementList[achievementId]]);
+    setUncompleted((uncompleted) =>
+      uncompleted.filter((a) => a.id !== achievementId)
+    );
+    setNewlyCompleted((newlyCompleted) => [
+      ...newlyCompleted,
+      achievementList[achievementId],
+    ]);
     setNewAchievement(true);
-  }
+  }, []);
 
-  console.log('App Context renders')
+  console.log("App Context renders");
 
   const checkoutCompletedAchievements = () => {
-    setCompleted(completed => [...completed, ...newlyCompleted]);
+    setCompleted((completed) => [...completed, ...newlyCompleted]);
     setNewlyCompleted([]);
     setNewAchievement(false);
-  }
+  };
 
   useEffect(() => {
     if (photosTaken === 1) {
@@ -71,7 +83,7 @@ export const GameProvider = (props: GameProviderProps) => {
     if (signedUp) {
       completeAchievement(2);
     }
-  }, [photosTaken, signedUp])
+  }, [photosTaken, signedUp, completeAchievement]);
 
   const value = {
     points,
@@ -80,13 +92,9 @@ export const GameProvider = (props: GameProviderProps) => {
     uncompleted,
     newlyCompleted,
     completed,
-  }
+  };
 
-  return (
-    <GameContext.Provider value={value}>
-      {children}
-    </GameContext.Provider>
-  )
-}
+  return <GameContext.Provider value={value}>{children}</GameContext.Provider>;
+};
 
 export const useGameContext = () => useContext(GameContext);
