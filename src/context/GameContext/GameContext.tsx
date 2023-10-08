@@ -54,7 +54,7 @@ export const GameProvider = (props: GameProviderProps) => {
     setPoints((points) => points + pointsToAdd);
   };
 
-  const completeAchievement = useCallback((achievementId: number) => {
+  const completeAchievement = (achievementId: number) => {
     addPoints(achievementList[achievementId].points);
     setUncompleted((uncompleted) =>
       uncompleted.filter((a) => a.id !== achievementId)
@@ -64,7 +64,7 @@ export const GameProvider = (props: GameProviderProps) => {
       achievementList[achievementId],
     ]);
     setNewAchievement(true);
-  }, []);
+  };
 
   console.log("App Context renders");
 
