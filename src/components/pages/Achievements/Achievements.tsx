@@ -48,7 +48,8 @@ const Achievements = () => {
 
   useEffect(() => {
     setTimeout(() => checkoutCompletedAchievements(), 500);
-  }, [checkoutCompletedAchievements]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return (
     <AchievementsWrapper theme={theme}>
