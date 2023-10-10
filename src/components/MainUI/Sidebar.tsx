@@ -43,10 +43,10 @@ const Sidebar = (props: SidebarProps) => {
     <SidebarWrapper theme={theme}>
       <SidebarElement
         theme={theme}
-        selected={theme === themes.bedge}
-        onClick={() => selectTheme(themes.bedge)}
+        selected={theme === themes.beige}
+        onClick={() => selectTheme(themes.beige)}
       >
-        {THEMES.bedge}
+        {THEMES.beige}
       </SidebarElement>
       <SidebarElement
         theme={theme}

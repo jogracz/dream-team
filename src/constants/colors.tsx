@@ -23,13 +23,13 @@ export interface Theme {
 }
 
 export const THEMES = {
-  bedge: "bedge",
+  beige: "beige",
   white: "white",
   blue: "blue",
 };
 
 export const themes = {
-  bedge: {
+  beige: {
     foreground: "#4F4846",
     background: "#FDF8F5",
     secondBackground: "#E8CEBF",

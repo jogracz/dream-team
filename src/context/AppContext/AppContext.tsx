@@ -1,25 +1,31 @@
-import React, { useState, createContext, useContext, Dispatch, SetStateAction} from 'react';
-import { themes, Theme } from '../../constants/colors';
+import React, {
+  useState,
+  createContext,
+  useContext,
+  Dispatch,
+  SetStateAction,
+} from "react";
+import { themes, Theme } from "../../constants/colors";
 
 interface AppProviderValue {
-  photos: string[],
-  user: null,
-  theme: Theme,
-  popupOpen: boolean,
+  photos: string[];
+  user: null;
+  theme: Theme;
+  popupOpen: boolean;
   photosTaken: number;
-  signedUp: boolean,
-  selectTheme: (newTheme: Theme) => void,
-  addPhoto: (newPhoto: string) => void,
+  signedUp: boolean;
+  selectTheme: (newTheme: Theme) => void;
+  addPhoto: (newPhoto: string) => void;
   removePhoto: (photoSrc: string) => void;
-  openPopup: () => void,
-  closePopup: () => void,
-  setSignedUp: Dispatch<SetStateAction<boolean>>,
+  openPopup: () => void;
+  closePopup: () => void;
+  setSignedUp: Dispatch<SetStateAction<boolean>>;
 }
 
 const defaultValue: AppProviderValue = {
   photos: [],
   user: null,
-  theme: themes.bedge,
+  theme: themes.beige,
   popupOpen: false,
   photosTaken: 0,
   signedUp: false,
@@ -29,7 +35,7 @@ const defaultValue: AppProviderValue = {
   openPopup: () => null,
   closePopup: () => null,
   setSignedUp: () => null,
-}
+};
 
 const AppContext = createContext(defaultValue);
 
@@ -39,32 +45,34 @@ interface AppProviderProps {
 
 export const AppProvider = (props: AppProviderProps) => {
   const { children } = props;
-  const [theme, setTheme] = useState(themes.bedge);
+  const [theme, setTheme] = useState(themes.beige);
   const [photos, setPhotos] = useState<string[]>([]);
   const [popupOpen, setPopupOpen] = useState(false);
   const [photosTaken, setPhotosTaken] = useState(0);
-  const [signedUp, setSignedUp] = useState(localStorage.getItem('signedUP') === 'true' ? true : false);
+  const [signedUp, setSignedUp] = useState(
+    localStorage.getItem("signedUP") === "true" ? true : false
+  );
 
   const addPhoto = (newPhoto: string) => {
-    setPhotos(photos => [...photos, newPhoto]);
-    setPhotosTaken(photosTaken => photosTaken + 1);
-  }
+    setPhotos((photos) => [...photos, newPhoto]);
+    setPhotosTaken((photosTaken) => photosTaken + 1);
+  };
 
   const removePhoto = (photoSrc: string) => {
-    setPhotos(photos => photos.filter(photo => photo !== photoSrc));
-  }
+    setPhotos((photos) => photos.filter((photo) => photo !== photoSrc));
+  };
 
-  const selectTheme = (newTheme: Theme ) => {
-    setTheme(newTheme) ;
-  }
+  const selectTheme = (newTheme: Theme) => {
+    setTheme(newTheme);
+  };
 
   const openPopup = () => {
     setPopupOpen(true);
-  }
+  };
 
   const closePopup = () => {
     setPopupOpen(false);
-  }
+  };
 
   const value = {
     photos,
@@ -79,13 +87,9 @@ export const AppProvider = (props: AppProviderProps) => {
     openPopup,
     closePopup,
     setSignedUp,
-  }
+  };
 
-  return (
-    <AppContext.Provider value={value}>
-      {children}
-    </AppContext.Provider>
-  )
-}
+  return <AppContext.Provider value={value}>{children}</AppContext.Provider>;
+};
 
 export const useAppContext = () => useContext(AppContext);
