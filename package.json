@@ -2,7 +2,7 @@
   "name": "dream-team",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://jogracz.github.io/dream-team",
+  "homepage": "",
   "dependencies": {
     "@babel/plugin-proposal-private-property-in-object": "^7.21.11",
     "@babel/plugin-transform-private-property-in-object": "^7.22.11",
