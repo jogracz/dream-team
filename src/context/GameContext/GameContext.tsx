@@ -1,10 +1,4 @@
-import React, {
-  useState,
-  createContext,
-  useContext,
-  useEffect,
-  useCallback,
-} from "react";
+import React, { useState, createContext, useContext, useEffect } from "react";
 import { useAppContext } from "../AppContext/AppContext";
 import { achievementList } from "../GameContext/achievementList";
 
@@ -83,7 +77,8 @@ export const GameProvider = (props: GameProviderProps) => {
     if (signedUp) {
       completeAchievement(2);
     }
-  }, [photosTaken, signedUp, completeAchievement]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [photosTaken, signedUp]);
 
   const value = {
     points,
